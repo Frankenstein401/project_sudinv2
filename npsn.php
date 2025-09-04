@@ -2,6 +2,12 @@
 
 require_once __DIR__ . '/config/functions.php';
 $datas = readNPSN();
+
+if(isset($_POST['searchbtn'])) {
+    $keyword = $_POST['search'];
+    $datas = searchNPSN($keyword);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +18,12 @@ $datas = readNPSN();
     <title>Document</title>
 </head>
 <body>
+    <div class="search-bar">
+        <form action="" method="post">
+            <input type="search" name="search" placeholder="Search by NPSN or Name">
+            <button name="searchbtn" type="submit">Search</button>
+        </form>
+    </div>
     <div class="container">
         <?php foreach ($datas as $data) : ?>
         <div class="card-content">

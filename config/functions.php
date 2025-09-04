@@ -508,3 +508,41 @@ function insertLembaga($data, $file)
 
     return $result ? true : "Execute failed: " . $error;
 }
+
+function searchNPSN($keyword) {
+    global $conn;
+    
+    try {
+        $sql = "SELECT * FROM table_lembaga WHERE npsn LIKE ? OR nama_satuan_pendidikan LIKE ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            error_log("Prepare failed: " . $conn->error);
+            return [];
+        }
+
+        $likeKeyword = "%" . $keyword . "%";
+        $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
+
+        if (!$stmt->execute()) {
+            error_log("Execute failed: " . $stmt->error);
+            $stmt->close();
+            return [];
+        }
+
+        $result = $stmt->get_result();
+        $data = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+
+        $stmt->close();
+        return $data;
+
+    } catch (Exception $e) {
+        error_log("Error in searchNPSN(): " . $e->getMessage());
+        return [];
+    }
+}
