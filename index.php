@@ -26,7 +26,7 @@ $suffix = "+";
     <title>Sistem Pendataan & Visitasi LKP - Jakarta Utara</title>
     <meta name="description" content="Portal resmi Suku Dinas Pendidikan Kota Administrasi Jakarta Utara untuk validasi NPSN dan monitoring LKP">
     <meta name="keywords" content="LKP, NPSN, Jakarta Utara, Pendidikan, Validasi, PMA, Non PMA">
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -46,12 +46,39 @@ $suffix = "+";
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            "50": "#eff6ff",
+                            "100": "#dbeafe",
+                            "200": "#bfdbfe",
+                            "300": "#93c5fd",
+                            "400": "#60a5fa",
+                            "500": "#3b82f6",
+                            "600": "#2563eb",
+                            "700": "#1d4ed8",
+                            "800": "#1e40af",
+                            "900": "#1e3a8a"
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
 </head>
 
 <body class="index-page">
 
-    <header id="header" class="header d-flex align-items-center fixed-top">
+    <!-- <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container position-relative d-flex align-items-center justify-content-between">
 
             <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
@@ -74,6 +101,47 @@ $suffix = "+";
             </nav>
 
             <a class="btn-getstarted" href="../project_sudin/validasi.php">Mulai Pendataan</a>
+
+        </div>
+    </header> -->
+
+    <!-- Header Navigasi -->
+    <header id="header" class="bg-transparent border-b border-transparent fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center space-x-2">
+                <h1 class="text-2xl font-bold text-primary-600">LKP<span class="text-dark-900">Portal</span></h1>
+            </a>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex space-x-6 text-dark-700 font-medium">
+                <a href="index.php" class="hover:text-primary-600 transition">Beranda</a>
+                <a href="https://disdik.jakarta.go.id/tentangkami/profil" class="hover:text-primary-600 transition">Tentang</a>
+                <div class="relative group">
+                    <button class="flex items-center space-x-1 hover:text-primary-600 transition">
+                        <span>Layanan</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <ul class="absolute left-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden group-hover:block">
+                        <li><a href="../project_sudin/validasi.php" class="block px-4 py-2 hover:bg-primary-50">Validasi NPSN</a></li>
+                        <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0" class="block px-4 py-2 hover:bg-primary-50">Laporan</a></li>
+                    </ul>
+                </div>
+                <a href="404.html" class="hover:text-primary-600 transition">Kontak</a>
+            </nav>
+
+            <!-- Button Get Started -->
+            <a href="../project_sudin/validasi.php"
+                class="ml-4 bg-primary-600 text-white px-3 py-1 rounded-lg shadow hover:bg-primary-700 transition">
+                Mulai Pendataan
+            </a>
+
+            <!-- Mobile nav toggle -->
+            <button class="mobile-nav-toggle md:hidden text-dark-700">
+                <i class="bi bi-list text-2xl"></i>
+            </button>
 
         </div>
     </header>
@@ -128,10 +196,9 @@ $suffix = "+";
 
                             <div class="hero-stats">
                                 <div class="stat-group">
-                                    <div class="stat">
+                                    <a href="npsn.php" class="stat">
                                         <i class="bi bi-building"></i>
                                         <div class="stat-text">
-                                            <a href="npsn.php">
                                             <span class="number">
                                                 <span class="purecounter"
                                                     data-purecounter-start="0"
@@ -139,9 +206,8 @@ $suffix = "+";
                                                     data-purecounter-duration="2">0</span><?php echo $suffix; ?>
                                             </span>
                                             <span class="label">LKP Terdaftar</span>
-                                            </a>
                                         </div>
-                                    </div>
+                                    </a>
                                     <div class="stat">
                                         <i class="bi bi-check-circle"></i>
                                         <div class="stat-text">
@@ -603,54 +669,54 @@ $suffix = "+";
     </main>
 
     <footer id="footer" class="footer position-relative text-lg md:text-xl leading-relaxed">
-    <div class="container footer-top">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-6 footer-about">
-                <a href="index.html" class="logo d-flex align-items-center text-2xl font-bold">
-                    <span class="sitename">LKPPortal</span>
-                </a>
-                <div class="footer-contact pt-3 text-base md:text-lg">
-                    <p>Jln. Jendral Gatot Subroto, Kav. 40-41</p>
-                    <p>Jakarta Selatan 12190</p>
-                    <p class="mt-3"><strong>Telepon:</strong> <span>(021) 5255385</span></p>
-                    <p><strong>Email:</strong> <span>disdik@jakarta.go.id</span></p>
+        <div class="container footer-top">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6 footer-about">
+                    <a href="index.html" class="logo d-flex align-items-center text-2xl font-bold">
+                        <span class="sitename">LKPPortal</span>
+                    </a>
+                    <div class="footer-contact pt-3 text-base md:text-lg">
+                        <p>Jln. Jendral Gatot Subroto, Kav. 40-41</p>
+                        <p>Jakarta Selatan 12190</p>
+                        <p class="mt-3"><strong>Telepon:</strong> <span>(021) 5255385</span></p>
+                        <p><strong>Email:</strong> <span>disdik@jakarta.go.id</span></p>
+                    </div>
+                    <div class="social-links d-flex mt-4 space-x-3 text-2xl">
+                        <a href="https://x.com/disdik_dki?lang=en"><i class="bi bi-twitter-x"></i></a>
+                        <a href="https://www.facebook.com/disdikdkijakarta?mibextid=wwXIfr"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/disdikdki/?hl=en"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.youtube.com/@dinaspendidikanprovinsidki6085"><i class="bi bi-youtube"></i></a>
+                    </div>
                 </div>
-                <div class="social-links d-flex mt-4 space-x-3 text-2xl">
-                    <a href="https://x.com/disdik_dki?lang=en"><i class="bi bi-twitter-x"></i></a>
-                    <a href="https://www.facebook.com/disdikdkijakarta?mibextid=wwXIfr"><i class="bi bi-facebook"></i></a>
-                    <a href="https://www.instagram.com/disdikdki/?hl=en"><i class="bi bi-instagram"></i></a>
-                    <a href="https://www.youtube.com/@dinaspendidikanprovinsidki6085"><i class="bi bi-youtube"></i></a>
+
+                <div class="col-lg-2 col-md-3 footer-links">
+                    <h4 class="text-xl font-semibold mb-2">Menu Utama</h4>
+                    <ul class="space-y-2 text-lg">
+                        <li><a href="index.php">Beranda</a></li>
+                        <li><a href="https://disdik.jakarta.go.id/tentangkami/profil">Tentang</a></li>
+                        <li><a href="#footer">Kontak</a></li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4 class="text-xl font-semibold mb-2">Menu Utama</h4>
-                <ul class="space-y-2 text-lg">
-                    <li><a href="index.php">Beranda</a></li>
-                    <li><a href="https://disdik.jakarta.go.id/tentangkami/profil">Tentang</a></li>
-                    <li><a href="#footer">Kontak</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4 class="text-xl font-semibold mb-2">Layanan</h4>
-                <ul class="space-y-2 text-lg">
-                    <li><a href="../project_sudin/validasi.php">Validasi NPSN</a></li>
-                    <li><a href="../project_sudin/validasi.php">Form PMA</a></li>
-                    <li><a href="../project_sudin/validasi.php">Form Non PMA</a></li>
-                    <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0">Laporan</a></li>
-                </ul>
+                <div class="col-lg-2 col-md-3 footer-links">
+                    <h4 class="text-xl font-semibold mb-2">Layanan</h4>
+                    <ul class="space-y-2 text-lg">
+                        <li><a href="../project_sudin/validasi.php">Validasi NPSN</a></li>
+                        <li><a href="../project_sudin/validasi.php">Form PMA</a></li>
+                        <li><a href="../project_sudin/validasi.php">Form Non PMA</a></li>
+                        <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0">Laporan</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container copyright text-center mt-4 text-base md:text-lg">
-        <p>© <span>2025 Sistem Pendataan & Visitasi LKP</span> – 
-            <strong>Suku Dinas Pendidikan Kota Administrasi Jakarta Utara</strong>. 
-            Seluruh hak cipta dilindungi.
-        </p>
-    </div>
-</footer>
+        <div class="container copyright text-center mt-4 text-base md:text-lg">
+            <p>© <span>2025 Sistem Pendataan & Visitasi LKP</span> –
+                <strong>Suku Dinas Pendidikan Kota Administrasi Jakarta Utara</strong>.
+                Seluruh hak cipta dilindungi.
+            </p>
+        </div>
+    </footer>
 
 
 
@@ -659,6 +725,21 @@ $suffix = "+";
 
     <!-- Preloader -->
     <div id="preloader"></div>
+
+    <script>
+        const header = document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                header.classList.add("bg-white", "shadow", "border-primary-100");
+                header.classList.remove("bg-transparent", "border-transparent");
+            } else {
+                header.classList.add("bg-transparent", "border-transparent");
+                header.classList.remove("bg-white", "shadow", "border-primary-100");
+            }
+        });
+    </script>
+
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
