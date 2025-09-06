@@ -1,6 +1,12 @@
 <?php
 // Selalu mulai session di awal
 session_start();
+$notif = null;
+
+if (isset($_SESSION['notyf'])) {
+    $notif = $_SESSION['notyf'];
+    unset($_SESSION['notyf']); // supaya cuma sekali tampil
+}
 
 // Cek apakah session 'user' ada atau tidak
 // Jika tidak ada, artinya belum login, maka redirect ke halaman login
@@ -13,25 +19,39 @@ if (!isset($_SESSION['user'])) {
 // Untuk gampangnya, kita simpan data user ke dalam variabel
 $user = $_SESSION['user'];
 
+$user   = $_SESSION['user'];
+$status = trim($user['status']); // status asli dari user (misalnya "PMA" atau "Non PMA")
 
-if (isset($_POST["pilih"])) {
-    if ($_POST["pilih_cabang_lkp"] == "Non Pma") {
-        $_SESSION['notyf'] = ['type' => 'success', 'message' => 'Berhasil memilih Non PMA'];
-        header("Location: form_non_pma.php");
-        exit;
-    } else if ($_POST["pilih_cabang_lkp"] == "PMA") {
-        $_SESSION['notyf'] = ['type' => 'success', 'message' => 'Berhasil memilih PMA'];
-        header("Location: form_pma.php");
+if (isset($_POST['pilih'])) {
+    $pilihan = trim($_POST['pilih_cabang_lkp'] ?? '');
+
+    if (strcasecmp($pilihan, $status) === 0) {
+        if ($status === "PMA") {
+            $_SESSION['notyf'] = [
+                'type' => 'success',
+                'message' => 'Berhasil memilih PMA',
+                'redirect' => 'form_pma.php'
+            ];
+        } elseif ($status === "Non PMA") {
+            $_SESSION['notyf'] = [
+                'type' => 'success',
+                'message' => 'Berhasil memilih Non PMA',
+                'redirect' => 'form_non_pma.php'
+            ];
+        }
+        header("Location: pilih_jenis.php"); // kembali ke halaman ini dulu
         exit;
     } else {
-        $_SESSION['notyf'] = ['type' => 'error', 'message' => 'Pilihan tidak valid!'];
-        header("Location: dashboard.php"); // fallback
+        $_SESSION['notyf'] = [
+            'type' => 'error',
+            'message' => 'Pilihan tidak valid! Status Anda adalah ' . $status
+        ];
+        header("Location: pilih_jenis.php");
         exit;
     }
 }
 
 
-$status = trim($user['status']);
 
 $styles = [
     'Aktif'   => ['bg-blue-100 text-blue-800', '<i class="fas fa-check-circle mr-1"></i>'],
@@ -56,6 +76,7 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -164,7 +185,7 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
                     <p class="text-sm font-medium text-secondary-700"><?= htmlspecialchars($user['nama_satuan_pendidikan']); ?></p>
                     <p class="text-xs text-secondary-500">NPSN: <?= htmlspecialchars($user['npsn']); ?></p>
                 </div>
-                <div class="bg-primary-100 text-primary-800 h-10 w-10 rounded-full flex items-center justify-center font-semibold">
+                <div id="logOut" class="bg-primary-100 text-primary-800 h-10 w-10 rounded-full flex items-center justify-center font-semibold">
                     <?= strtoupper(substr(htmlspecialchars($user['nama_satuan_pendidikan']), 0, 1)); ?>
                 </div>
             </div>
@@ -321,13 +342,37 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
     <!-- Footer -->
     <footer class="mt-12 py-6 bg-white border-t border-secondary-100">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-secondary-600 text-sm">&copy; <?= date('Y'); ?> <span>2025 Sistem Pendataan & Visitasi LKP</span> – 
-            <strong>Suku Dinas Pendidikan Kota Administrasi Jakarta Utara</strong>. 
-            Seluruh hak cipta dilindungi.</p>
+            <p class="text-secondary-600 text-sm">&copy; <?= date('Y'); ?> <span>2025 Sistem Pendataan & Visitasi LKP</span> –
+                <strong>Suku Dinas Pendidikan Kota Administrasi Jakarta Utara</strong>.
+                Seluruh hak cipta dilindungi.
+            </p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
     <script>
+        <?php if ($notif): ?>
+            const notyf = new Notyf({
+                duration: 3000,
+                position: {
+                    x: 'right',
+                    y: 'top'
+                }
+            });
+
+            <?php if ($notif['type'] === 'success'): ?>
+                notyf.success("<?= $notif['message'] ?>");
+                <?php if (isset($notif['redirect'])): ?>
+                    setTimeout(() => {
+                        window.location.href = "<?= $notif['redirect'] ?>";
+                    }, 2500);
+                <?php endif; ?>
+            <?php else: ?>
+                notyf.error("<?= $notif['message'] ?>");
+            <?php endif; ?>
+        <?php endif; ?>
+
         // Enhanced form selection with visual feedback
         const options = document.querySelectorAll('.select-option');
         const select = document.getElementById('pilih_cabang_lkp');

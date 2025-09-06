@@ -1,5 +1,16 @@
 <?php
+session_start();
 require_once __DIR__ . '/../config/functionAdmin.php';
+
+// Jika tidak ada, artinya belum login, maka redirect ke halaman login
+if (!isset($_SESSION['user'])) {
+    header("Location: ../validasi.php");
+    // exit();
+}
+
+if($_SESSION['user']['user'] != 'admin' && $_SESSION['user']['key'] != 'admin'){
+    header("Location: ../validasi.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -234,7 +245,7 @@ require_once __DIR__ . '/../config/functionAdmin.php';
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex-shrink-0 h-16 w-16">
                                         <img class="h-16 w-16 rounded-xl object-cover shadow-md border-2 border-gray-200 hover:shadow-lg transition-all duration-300 hover:scale-105"
-                                            src="./uploads/<?= htmlspecialchars($data['foto_lembaga']) ?>"
+                                            src="<?= empty($data['foto_lembaga']) ? 'assets\img\image.png' : 'admin/uploads/' . $data['foto_lembaga'] ?>"
                                             alt="Foto Lembaga"
                                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0zMiAyOEMyOS4yMzg2IDI4IDI3IDMwLjIzODYgMjcgMzNDMjcgMzUuNzYxNCAyOS4yMzg2IDM4IDMyIDM4QzM0Ljc2MTQgMzggMzcgMzUuNzYxNCAzNyAzM0MzNyAzMC4yMzg2IDM0Ljc2MTQgMjggMzIgMjhaIiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0yNCA0NEgyNEM0My4xMDQ2IDQ0IDQ0IDQzLjEwNDYgNDQgNDJWMjJDNDQgMjAuODk1NCA0My4xMDQ2IDIwIDQyIDIwSDIyQzIwLjg5NTQgMjAgMjAgMjAuODk1NCAyMCAyMlY0MkMyMCA0My4xMDQ2IDIwLjg5NTQgNDQgMjIgNDRIMjRaIiBzdHJva2U9IiM5Q0EzQUYiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4K'">
                                     </div>
@@ -282,8 +293,15 @@ require_once __DIR__ . '/../config/functionAdmin.php';
                                     </span>
 
                                 </td>
+                                 <?php
+                                    // =============================================================
+                                    // LOGIKA PENGECEKAN STATUS DIPINDAH KE DALAM LOOP INI
+                                    // Variabel $data di sini adalah satu map/baris data (sudah benar)
+                                    // =============================================================
+                                    $bgColor = ($data['status_pengisian_lkp'] == 'sudah mengisi') ? 'text-green-500' : 'text-red-500';
+                                    ?>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <p class="text-red-500">Belum mengisi</p>
+                                    <p class="<?= $bgColor; ?>"><?= $data['status_pengisian_lkp']; ?></p>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center space-x-2">

@@ -227,7 +227,7 @@ $suffix = "+";
 
                             <div class="cta-section">
                                 <div class="cta-buttons">
-                                    <a href="../project_sudin/validasi.php" class="btn btn-primary">Mulai Pendataan</a>
+                                    <a href="./validasi.php" class="btn btn-primary">Mulai Pendataan</a>
                                     <a href="https://youtu.be/xvFZjo5PgG0?si=lPpflBPwE-8cf_fQ" class="btn btn-secondary glightbox">
                                         <i class="bi bi-play-circle"></i>
                                         Panduan Penggunaan
@@ -235,7 +235,7 @@ $suffix = "+";
                                 </div>
 
                                 <div class="quick-actions">
-                                    <a href="../project_sudin/validasi.php" class="action-link">
+                                    <a href="./validasi.php" class="action-link">
                                         <i class="bi bi-shield-check"></i>
                                         <span>Validasi NPSN</span>
                                     </a>

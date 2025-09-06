@@ -73,6 +73,7 @@
 
     // Potong array
     $datas_page = array_slice($datas, $offset, $limit);
+
     ?>
 
 
@@ -233,10 +234,17 @@
                 </div>
             <?php else: ?>
                 <?php foreach ($datas_page as $data) : ?>
+                     <?php
+                        // =============================================================
+                        // LOGIKA PENGECEKAN STATUS DIPINDAH KE DALAM LOOP INI
+                        // Variabel $data di sini adalah satu map/baris data (sudah benar)
+                        // =============================================================
+                        $bgColor = ($data['status_pengisian_lkp'] == 'sudah mengisi') ? 'bg-green-500' : 'bg-red-500';
+                        ?>
                     <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-primary-100 overflow-hidden group">
                         <!-- Image Section -->
                         <div class="relative overflow-hidden h-48 bg-primary-100 border-b-4 border-primary-500 flex items-center justify-center">
-                            <img src="admin/uploads/<?= $data['foto_lembaga'] ?>"
+                            <img src="<?= empty($data['foto_lembaga']) ? 'assets\img\image.png' : 'admin/uploads/' . $data['foto_lembaga'] ?>"
                                 alt="Foto Lembaga"
                                 class="w-[180px] h-[180px] object-cover group-hover:scale-105 transition-transform duration-300">
                             <div class="absolute top-4 right-4">
@@ -256,8 +264,8 @@
                                 <!-- <span class="<?= $data['status'] === 'PMA' ? 'bg-green-400' : 'bg-red-500'; ?> text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg mx-4">
                                     <?= $data['status']; ?>
                                 </span> -->
-                                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg mx-4">
-                                    Belum Mengisi
+                                <span class="<?= $bgColor; ?> text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg mx-4">
+                                    <?= $data['status_pengisian_lkp']; ?>
                                 </span>
                             </div>
 

@@ -1,8 +1,19 @@
 <?php
+session_start();
 require_once __DIR__ . '/../config/functions.php';
 
-session_start();
 $message = "";
+
+// Jika tidak ada, artinya belum login, maka redirect ke halaman login
+if (!isset($_SESSION['user'])) {
+    header("Location: ../validasi.php");
+    // exit();
+}
+
+if($_SESSION['user']['user'] != 'admin' && $_SESSION['user']['key'] != 'admin'){
+    header("Location: ../validasi.php");
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = insertLembaga($_POST, $_FILES);

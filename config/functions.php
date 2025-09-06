@@ -2,11 +2,12 @@
 
 require_once __DIR__ . '/conn.php';
 
-function insertNonPMA() {
+function insertNonPMA()
+{
     global $conn;
 
     try {
-        // Ambil semua data dari POST
+        // Ambil semua data dari POST (bagian ini tidak berubah)
         $id_table_lembaga = intval($_POST['id_table_lembaga']);
         $no_akte = htmlspecialchars($_POST['no_akte']);
         $jenis_kegiatan = htmlspecialchars($_POST['jenis_kegiatan']);
@@ -97,6 +98,12 @@ function insertNonPMA() {
         // Data visitasi
         $hasil_visitasi = htmlspecialchars($_POST['hasil_visitasi']);
 
+        // ==================================================================
+        // PENAMBAHAN: Variabel flag untuk menandai keberhasilan semua query
+        // ==================================================================
+        $semua_berhasil = true;
+
+        // Query INSERT ke form_non_pma (tidak berubah)
         $placeholders = implode(', ', array_fill(0, 70, '?'));
         $sql = "INSERT INTO form_non_pma (
             `id_table_lembaga`, `no_akte`, `jenis_kegiatan`, `kota_administrasi`, 
@@ -124,91 +131,116 @@ function insertNonPMA() {
             die("FATAL ERROR: Gagal mempersiapkan statement. Cek kembali semua nama kolom di query SQL. Pesan error dari database: " . $conn->error);
         }
 
-        // ==================================================================
-        // PERBAIKAN PADA BIND_PARAM
-        // String tipe data sekarang jumlahnya 70, sesuai dengan jumlah '?'
-        // ==================================================================
         $stmt->bind_param(
-            // String tipe data yang sudah dikoreksi (Total 70 karakter)
             "isssssssssssiisssiissisddddssssssssssssssssssssissssissssssssssssssiis",
-            // Lembaga & Pimpinan (12 vars)
             $id_table_lembaga, $no_akte, $jenis_kegiatan, $kota_administrasi,
             $nama_pimpinan, $pimpinan_ijazah, $pimpinan_asal_pt, $pimpinan_jurusan,
             $pimpinan_sk_lembaga, $pimpinan_sk_nomor, $pimpinan_sk_tanggal, $pimpinan_pengalaman,
-            // Pendidik WNI & WNA (9 vars)
             $pendidik_wni_laki, $pendidik_wni_perempuan, $pendidik_wni_pendidikan_terakhir, $pendidik_wni_sertifikat,
             $pendidik_wna_ijin_kerja, $pendidik_wna_laki, $pendidik_wna_perempuan, $pendidik_wna_pendidikan_terakhir, $pendidik_wna_sertifikat,
-            // Pendidik Umum & Gaji (6 vars)
             $jumlah_tendik, $pendidikan_tendik,
             $gaji_pendidik_wni_min, $gaji_pendidik_wni_max, $gaji_pendidik_wna_min, $gaji_pendidik_wna_max,
-            // Administrasi (14 vars)
             $ada_sop, $ada_buku_hadir_pendidik, $ada_buku_hadir_siswa, $ada_buku_inventaris,
             $ada_program_kerja_yayasan, $ada_program_kerja_pimpinan, $ada_kalender_pendidikan, $ada_buku_tamu,
             $ada_buku_induk, $ada_buku_hasil_belajar, $ada_jadwal, $ada_tata_tertib,
             $ada_sertifikat_pendidikan, $ada_struktur_organisasi,
-            // Dokumen (3 vars)
             $dokumen_kurikulum, $dokumen_rencana_pengembangan, $dokumen_rencana_tahunan,
-            // Sarana Prasarana (18 vars)
             $luas_tanah, $status_tanah, $peruntukan_tanah, $jumlah_ruang_belajar, $ukuran_ruang_belajar,
             $kondisi_gedung, $status_gedung, $peruntukan_gedung, $jumlah_kamar_mandi, $perawatan_kamar_kecil,
             $persediaan_air_bersih, $ruang_pimpinan, $ruang_tu, $ruang_perpustakaan, $ruang_lab,
             $peralatan_laboratorium, $kondisi_ruang_kelas, $meja_kursi, $papan_tulis, $gudang, $alat_kebersihan,
-            // Peserta Didik & Visitasi (5 vars)
             $nama_program, $kelas_dan_level,
             $jumlah_siswa_laki, $jumlah_siswa_perempuan,
             $hasil_visitasi
         );
 
         if (!$stmt->execute()) {
+            $semua_berhasil = false; // Jika gagal, set flag ke false
             die("FATAL ERROR: Gagal mengeksekusi statement. Cek tipe data atau constraint (foreign key). Pesan error dari database: " . $stmt->error);
         }
 
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-<script>
-Swal.fire({
-    icon: 'success',
-    title: 'Berhasil!',
-    text: 'Data berhasil dikirim!',
-    confirmButtonText: 'OK'
-}).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = 'index.php';
-    }
-});
-</script>";
+        // ==================================================================
+        // BAGIAN BARU: UPDATE STATUS DI table_lembaga
+        // Hanya jalankan blok kode ini jika proses INSERT di atas berhasil
+        // ==================================================================
+        if ($semua_berhasil) {
+            $status_baru = "sudah mengisi";
+            
+            // Siapkan query UPDATE. Pastikan nama Primary Key 'id' sudah benar.
+            $sql_update = "UPDATE table_lembaga SET status_pengisian_lkp = ? WHERE id = ?";
+            
+            $stmt_update = $conn->prepare($sql_update);
+            if ($stmt_update === false) {
+                // Jika prepare gagal, proses dihentikan agar tidak ada data parsial
+                die("FATAL ERROR (UPDATE): Gagal mempersiapkan statement update. Error: " . $conn->error);
+            }
+
+            // Bind parameter: "s" untuk status (string), "i" untuk id (integer)
+            $stmt_update->bind_param("si", $status_baru, $id_table_lembaga);
+
+            if (!$stmt_update->execute()) {
+                // Jika update gagal, set flag ke false dan tampilkan error
+                $semua_berhasil = false; 
+                echo "ERROR (UPDATE): Gagal mengeksekusi update. " . $stmt_update->error;
+            }
+            $stmt_update->close(); // Tutup statement kedua
+        }
+        
+        // ==================================================================
+        // MODIFIKASI: Pesan sukses hanya ditampilkan jika semua proses berhasil
+        // ==================================================================
+        if ($semua_berhasil) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Data berhasil dikirim dan status lembaga telah diperbarui!',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'pilih_jenis.php';
+                    }
+                });
+                </script>";
+        }
 
         $stmt->close();
         $conn->close();
 
     } catch (Exception $e) {
         error_log("Error in insertNonPMA(): " . $e->getMessage());
+        // Mungkin tambahkan pesan error untuk user di sini jika perlu
         return false;
     }
 }
 
-function insertPMA() {
-    
+function insertPMA()
+{
     global $conn;
-    
+
     try {
-        // Debug: Cek apakah function dipanggil
-        error_log("insertPMA() function called");
-        
-        // Cek koneksi database
-        if (!$conn) {
-            error_log("Database connection failed");
-            return false;
-        }
-        
-        // Ambil semua data dari POST
-        $id_table_lembaga = intval($_POST['id_table_lembaga'] ?? 0);
-        
-        if ($id_table_lembaga <= 0) {
-            error_log("Invalid id_table_lembaga: " . $id_table_lembaga);
-            return false;
+        // Cek koneksi, pastikan tidak ada masalah
+        if ($conn->connect_error) {
+            error_log("Database connection failed: " . $conn->connect_error);
+            // Tampilkan pesan error jika koneksi gagal
+            echo "<script>
+                    Swal.fire('Error!', 'Koneksi ke database gagal.', 'error');
+                  </script>";
+            return; // Hentikan eksekusi
         }
 
-        // data permohonan izin LKP PMA
+        // Flag untuk melacak status keseluruhan proses
+        $semua_berhasil = true;
+
+        // Ambil ID Lembaga dari POST
+        $id_table_lembaga = intval($_POST['id_table_lembaga'] ?? 0);
+        if ($id_table_lembaga <= 0) {
+            error_log("Invalid id_table_lembaga provided.");
+            $semua_berhasil = false;
+        }
+
+        // Ambil semua data dari POST dan gabungkan (kode kamu sebelumnya, tidak diubah)
         $form_pendaftaran_kelengkapan = htmlspecialchars($_POST['form_pendaftaran_kelengkapan'] ?? '');
         $form_pendaftaran_score = intval($_POST['form_pendaftaran_score'] ?? 0);
         $form_pendaftaran_keterangan = htmlspecialchars($_POST['form_pendaftaran_keterangan'] ?? '');
@@ -369,56 +401,100 @@ function insertPMA() {
         $jadwal_ruangan_score = intval($_POST['jadwal_ruangan_score'] ?? 0);
         $jadwal_ruangan_keterangan = htmlspecialchars($_POST['jadwal_ruangan_keterangan'] ?? '');
         $combined_jadwal_ruangan = $jadwal_ruangan_kelengkapan . "," . $jadwal_ruangan_score . "," . $jadwal_ruangan_keterangan;
-
-        // Debug: Log semua data yang akan diinsert
-        error_log("Data ready for insert - id_table_lembaga: " . $id_table_lembaga);
-
-        // SQL Query tanpa created_at (biarkan auto-generate)
-        $sql = "INSERT INTO form_pma (
-            id_table_lembaga,
-            form_pendaftaran, surat_tugas, ktp_pemohon, surat_rekomendasi, sk_kemenhumkam, nomor_induk_berusaha, kepemilikan_tanah,
-            acuan_kurikulum, kurikulum, rpp, pendekatan_pembelajaran, 
-            nama, jabatan, kualifikasi_akademik, sertifikat, pengalaman_kerja, 
-            bangunan, ruangan, alat, bahan_ajar, kepemilikan_gedung,
-            rancangan_pembiayaan, sumber_pembiayaan, 
-            sistem_sertifikasi, orientasi_sertifikasi, pengembangan_evaluasi, 
-            struktur_organisasi, sop, peserta_didik, kalender_pembelajaran, jadwal_ruangan
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            error_log("Prepare failed: " . $conn->error);
-            return false;
+        // Hanya lanjutkan jika tidak ada error dari validasi awal
+        if ($semua_berhasil) {
+            // PROSES 1: INSERT DATA KE form_pma
+            $sql_insert = "INSERT INTO form_pma (
+                id_table_lembaga,
+                form_pendaftaran, surat_tugas, ktp_pemohon, surat_rekomendasi, sk_kemenhumkam, nomor_induk_berusaha, kepemilikan_tanah,
+                acuan_kurikulum, kurikulum, rpp, pendekatan_pembelajaran, 
+                nama, jabatan, kualifikasi_akademik, sertifikat, pengalaman_kerja, 
+                bangunan, ruangan, alat, bahan_ajar, kepemilikan_gedung,
+                rancangan_pembiayaan, sumber_pembiayaan, 
+                sistem_sertifikasi, orientasi_sertifikasi, pengembangan_evaluasi, 
+                struktur_organisasi, sop, peserta_didik, kalender_pembelajaran, jadwal_ruangan
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt_insert = $conn->prepare($sql_insert);
+            if ($stmt_insert === false) {
+                error_log("Prepare statement INSERT gagal: " . $conn->error);
+                $semua_berhasil = false;
+            } else {
+                $stmt_insert->bind_param(
+                    "isssssssssssssssssssssssssssssss",
+                    $id_table_lembaga, 
+                    $combined_pendaftaran, $combined_surat_tugas, $combined_ktp_pemohon, $combined_surat_rekomendasi, $combined_sk_kemenhumkam, $combined_nomor_induk_berusaha, $combined_kepemilikan_tanah, 
+                    $combined_acuan_kurikulum, $combined_kurikulum, $combined_rpp, $combined_pendekatan_pembelajaran, 
+                    $combined_nama, $combined_jabatan, $combined_kualifikasi_akademik, $combined_sertifikat, $combined_pengalaman_kerja, 
+                    $combined_bangunan, $combined_ruangan, $combined_alat, $combined_bahan_ajar, $combined_kepemilikan_gedung, 
+                    $combined_rancangan_pembiayaan, $combined_sumber_pembiayaan, 
+                    $combined_sistem_sertifikasi, $combined_orientasi_sertifikasi, $combined_pengembangan_evaluasi, 
+                    $combined_struktur_organisasi, $combined_sop, $combined_peserta_didik, $combined_kalender_pembelajaran, $combined_jadwal_ruangan
+                );
+
+                if (!$stmt_insert->execute()) {
+                    error_log("Eksekusi INSERT gagal: " . $stmt_insert->error);
+                    $semua_berhasil = false;
+                }
+                $stmt_insert->close();
+            }
+
+            // PROSES 2: UPDATE STATUS DI table_lembaga (HANYA JIKA INSERT BERHASIL)
+            if ($semua_berhasil) {
+                $status_baru = "sudah mengisi";
+                $sql_update = "UPDATE table_lembaga SET status_pengisian_lkp = ? WHERE id = ?";
+                
+                $stmt_update = $conn->prepare($sql_update);
+                if ($stmt_update === false) {
+                    error_log("Prepare statement UPDATE gagal: " . $conn->error);
+                    $semua_berhasil = false;
+                } else {
+                    $stmt_update->bind_param("si", $status_baru, $id_table_lembaga);
+                    if (!$stmt_update->execute()) {
+                        error_log("Eksekusi UPDATE gagal: " . $stmt_update->error);
+                        $semua_berhasil = false;
+                    }
+                    $stmt_update->close();
+                }
+            }
         }
 
-        // Bind parameter - total 32 parameter (1 int + 31 string)
-        $stmt->bind_param(
-            "isssssssssssssssssssssssssssssss",
-            $id_table_lembaga, 
-            $combined_pendaftaran, $combined_surat_tugas, $combined_ktp_pemohon, $combined_surat_rekomendasi, $combined_sk_kemenhumkam, $combined_nomor_induk_berusaha, $combined_kepemilikan_tanah, 
-            $combined_acuan_kurikulum, $combined_kurikulum, $combined_rpp, $combined_pendekatan_pembelajaran, 
-            $combined_nama, $combined_jabatan, $combined_kualifikasi_akademik, $combined_sertifikat, $combined_pengalaman_kerja, 
-            $combined_bangunan, $combined_ruangan, $combined_alat, $combined_bahan_ajar, $combined_kepemilikan_gedung, 
-            $combined_rancangan_pembiayaan, $combined_sumber_pembiayaan, 
-            $combined_sistem_sertifikasi, $combined_orientasi_sertifikasi, $combined_pengembangan_evaluasi, 
-            $combined_struktur_organisasi, $combined_sop, $combined_peserta_didik, $combined_kalender_pembelajaran, $combined_jadwal_ruangan
-        );
-
-        // Execute query
-        if ($stmt->execute()) {
-            $affected_rows = $stmt->affected_rows;
-            error_log("Insert successful - affected rows: " . $affected_rows);
-            $stmt->close();
-            return $affected_rows;
+        // PROSES 3: BERIKAN FEEDBACK KE USER BERDASARKAN HASIL AKHIR
+        if ($semua_berhasil) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                  <script>
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Berhasil!',
+                      text: 'Data LKP PMA berhasil disimpan dan status lembaga telah diperbarui.',
+                      confirmButtonText: 'OK'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          window.location.href = 'index.php';
+                      }
+                  });
+                  </script>";
         } else {
-            error_log("Execute failed: " . $stmt->error);
-            $stmt->close();
-            return false;
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                  <script>
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Gagal!',
+                      text: 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                      confirmButtonText: 'OK'
+                  });
+                  </script>";
         }
         
+        $conn->close();
+
     } catch (Exception $e) {
-        error_log("Error in insertPMA(): " . $e->getMessage());
-        return false;
+        error_log("Exception di insertPMA(): " . $e->getMessage());
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              <script>
+              Swal.fire('Error!', 'Terjadi kesalahan sistem yang tidak terduga.', 'error');
+              </script>";
     }
 }
 
