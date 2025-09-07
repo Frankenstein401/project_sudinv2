@@ -15,7 +15,7 @@ function validateNPSN() {
         $npsn = $_POST['npsn'];
         $nama_lembaga = $_POST['nama_lembaga'];
 
-        if($npsn == '123456789' && $nama_lembaga == 'admin') {
+        if($npsn == 'lkpadmin12' && $nama_lembaga == 'adminlkp') {
             $session_admin = ["user" => 'admin', "key" => "admin"];
             $_SESSION['user'] = $session_admin;
             header("Location: ./admin/readAdmin.php");

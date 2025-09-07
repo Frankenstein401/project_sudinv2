@@ -63,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['button_kirim'])) {
         }
     </script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #f0f0f0 0%, ##80e1ff 50%, #ffffff 100%);
-        }
+        /* .gradient-bg {
+            background: linear-gradient(135deg, #f0f0f0 0%, #f2f2f2 50%, #ffffff 100%);
+        } */
 
         .card-shadow {
             box-shadow: 0 25px 50px -12px rgba(5, 12, 156, 0.15);
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['button_kirim'])) {
     </style>
 </head>
 
-<body class="gradient-bg min-h-screen">
+<body class="bg-red min-h-screen">
     <div
     class="max-w-4xl w-full mx-auto p-10 rounded-3xl glass relative overflow-hidden card-shadow fade-in border border-blue/100 backdrop-blur-xl">
 
@@ -190,10 +190,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['button_kirim'])) {
         </script>
         <?php endif; ?>
 
-        <form action="" method="POST" class="space-y-8">
+        <form action="" method="POST" class="space-y-8 py-10">
             <input type="hidden" name="id_table_lembaga" value="<?= htmlspecialchars($user['id']); ?>">
             <!-- Data Lembaga -->
-            <div class="section-hover border-b-4 pulse-border border-primary/50 pb-6 mb-6">
+            <div class="section-hover border-b-4 pulse-border border-primary/100 pb-6 mb-6">
                 <h2 class="text-xl font-bold text-primary mb-4">Data Lembaga</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>

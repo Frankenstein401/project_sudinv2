@@ -73,6 +73,7 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
     <title>Pilih Cabang Lembaga Kursus dan Pelatihan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -185,8 +186,23 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
                     <p class="text-sm font-medium text-secondary-700"><?= htmlspecialchars($user['nama_satuan_pendidikan']); ?></p>
                     <p class="text-xs text-secondary-500">NPSN: <?= htmlspecialchars($user['npsn']); ?></p>
                 </div>
-                <div id="logOut" class="bg-primary-100 text-primary-800 h-10 w-10 rounded-full flex items-center justify-center font-semibold">
-                    <?= strtoupper(substr(htmlspecialchars($user['nama_satuan_pendidikan']), 0, 1)); ?>
+                <div x-data="{ open: false }" class="relative inline-block">
+                    <!-- Avatar -->
+                    <div
+                        id="logOut"
+                        @click="open = !open"
+                        class="bg-primary-100 text-primary-800 h-10 w-10 rounded-full flex items-center justify-center font-semibold cursor-pointer">
+                        <?= strtoupper(substr(htmlspecialchars($user['nama_satuan_pendidikan']), 0, 1)); ?>
+                    </div>
+
+                    <!-- Tooltip -->
+                    <div
+                        x-show="open"
+                        @click.away="open = false"
+                        class="absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap bg-red-200 border border-red-800 shadow-lg rounded-md px-5 py-1 text-sm text-red-700 cursor-pointer"
+                        @click="window.location.href='index.php'">
+                        Log Out
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,7 +211,7 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
     <div class="container mx-auto px-4 py-8">
         <!-- Breadcrumb -->
         <div class="mb-6 flex items-center space-x-2 text-sm text-secondary-500">
-            <a href="#" class="hover:text-primary-600"><i class="fas fa-home"></i></a>
+            <a href="./index.php" class="hover:text-primary-600"><i class="fas fa-home"></i></a>
             <span><i class="fas fa-chevron-right text-xs"></i></span>
             <span class="text-primary-600 font-medium">Pilih Cabang LKP</span>
         </div>

@@ -13,6 +13,7 @@
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon">
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
@@ -101,7 +102,6 @@
                         <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0" class="block px-4 py-2 hover:bg-primary-50">Laporan</a></li>
                     </ul>
                 </div>
-                <a href="404.html" class="hover:text-primary-600 transition">Kontak</a>
             </nav>
 
             <!-- Mobile nav toggle -->
@@ -126,7 +126,6 @@
                         <a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0" class="hover:text-primary-600">Laporan</a>
                     </div>
                 </details>
-                <a href="404.html" class="hover:text-primary-600 transition">Kontak</a>
             </nav>
         </div>
     </header>
@@ -234,13 +233,13 @@
                 </div>
             <?php else: ?>
                 <?php foreach ($datas_page as $data) : ?>
-                     <?php
-                        // =============================================================
-                        // LOGIKA PENGECEKAN STATUS DIPINDAH KE DALAM LOOP INI
-                        // Variabel $data di sini adalah satu map/baris data (sudah benar)
-                        // =============================================================
-                        $bgColor = ($data['status_pengisian_lkp'] == 'sudah mengisi') ? 'bg-green-500' : 'bg-red-500';
-                        ?>
+                    <?php
+                    // =============================================================
+                    // LOGIKA PENGECEKAN STATUS DIPINDAH KE DALAM LOOP INI
+                    // Variabel $data di sini adalah satu map/baris data (sudah benar)
+                    // =============================================================
+                    $bgColor = ($data['status_pengisian_lkp'] == 'sudah mengisi') ? 'bg-green-200 text-green-700' : 'bg-red-200 text-red-700';
+                    ?>
                     <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-primary-100 overflow-hidden group">
                         <!-- Image Section -->
                         <div class="relative overflow-hidden h-48 bg-primary-100 border-b-4 border-primary-500 flex items-center justify-center">
@@ -255,19 +254,20 @@
                         </div>
 
                         <!-- Content Section -->
-                        <div class="p-4">
+                        <div class="p-3">
                             <!-- NPSN Badge -->
-                            <div class="mb-3">
-                                <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-lg text-sm font-semibold">
+                            <div class="flex flex-wrap items-center gap-1 mb-3">
+                                <!-- NPSN -->
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium text-primary-700 bg-primary-50 rounded-md">
                                     NPSN: <?= $data['npsn']; ?>
                                 </span>
-                                <!-- <span class="<?= $data['status'] === 'PMA' ? 'bg-green-400' : 'bg-red-500'; ?> text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg mx-4">
-                                    <?= $data['status']; ?>
-                                </span> -->
-                                <span class="<?= $bgColor; ?> text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg mx-4">
+
+                                <!-- Status -->
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-medium rounded-md <?= $bgColor; ?>">
                                     <?= $data['status_pengisian_lkp']; ?>
                                 </span>
                             </div>
+
 
                             <!-- Title -->
                             <h3 class="text-xl font-bold text-dark-900 mb-3 line-clamp-2">

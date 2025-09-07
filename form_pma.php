@@ -744,7 +744,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['button_kirim'])) {
                 <?php else: ?>
                     notyf.error("<?= $_SESSION['notif']['message']; ?>");
                 <?php endif; ?>
+                // redirect ke index.php setelah 3.5 detik
+                setTimeout(function() {
+                    window.location.href = "index.php";
+                }, 3500);
+
             <?php unset($_SESSION['notif']);
+
             endif; ?>
         });
     </script>
