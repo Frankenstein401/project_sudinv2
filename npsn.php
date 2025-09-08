@@ -137,10 +137,10 @@
             <div class="flex items-center justify-between">
 
                 <!-- Judul -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-8">
                     <div>
-                        <h1 class="text-2xl font-bold text-dark-900">Data Lembaga Pendidikan</h1>
-                        <p class="text-dark-700 text-sm">Sistem Informasi Satuan Pendidikan</p>
+                        <h1 class="ml-10 text-2xl font-bold text-dark-900">Data Lembaga Pendidikan</h1>
+                        <p class="ml-10 text-dark-700 text-sm">Sistem Informasi Satuan Pendidikan</p>
                     </div>
                 </div>
 

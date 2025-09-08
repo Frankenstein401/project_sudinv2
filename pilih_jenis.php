@@ -264,20 +264,26 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
                                     <?= htmlspecialchars($status); ?>
                                 </span>
                             </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-24 text-sm font-medium text-secondary-600 mr-4">Status pengisian:</span>
+                                <span class="text-secondary-700"><?= htmlspecialchars($user['status_pengisian_lkp']); ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Selection Form Card -->
-            <div class="bg-white rounded-xl shadow-lg border border-primary-100 card-hover animate-slide-up">
-                <div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4">
-                    <h3 class="text-xl font-semibold flex items-center">
-                        <i class="fas fa-code-branch mr-3"></i>
-                        Pilih Jenis Cabang LKP
-                    </h3>
-                </div>
-                <div class="p-6">
+            <?php if ($user['status_pengisian_lkp'] === 'belum mengisi') : ?>
+    <!-- Selection Form Card -->
+    <div class="bg-white rounded-xl shadow-lg border border-primary-100 card-hover animate-slide-up">
+        <div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4">
+            <h3 class="text-xl font-semibold flex items-center">
+                <i class="fas fa-code-branch mr-3"></i>
+                Pilih Jenis Cabang LKP
+            </h3>
+        </div>
+        <div class="p-6">
                     <form action="" method="post" class="space-y-6" id="selectionForm">
                         <div>
                             <label for="pilih_cabang_lkp" class="block text-sm font-medium text-secondary-700 mb-3">
@@ -351,6 +357,8 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
                         </div>
                     </div>
                 </div>
+    </div>
+<?php endif; ?>
             </div>
         </div>
     </div>

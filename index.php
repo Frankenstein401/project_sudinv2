@@ -78,7 +78,7 @@ $suffix = "+";
 
 <body class="index-page">
 
-    <!-- <header id="header" class="header d-flex align-items-center fixed-top">
+    <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container position-relative d-flex align-items-center justify-content-between">
 
             <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
@@ -91,11 +91,11 @@ $suffix = "+";
                     <li><a href="https://disdik.jakarta.go.id/tentangkami/profil">Tentang</a></li>
                     <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="../project_sudin/validasi.php">Validasi NPSN</a></li>
+                            <li><a href="../project_sudin/validasi.php">Pendataan NPSN</a></li>
                             <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0">Laporan</a></li>
                         </ul>
                     </li>
-                    <li><a href="404.html">Kontak</a></li>
+                    <li><a href="#footer">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -103,48 +103,9 @@ $suffix = "+";
             <a class="btn-getstarted" href="../project_sudin/validasi.php">Mulai Pendataan</a>
 
         </div>
-    </header> -->
-
-    <!-- Header Navigasi -->
-    <header id="header" class="bg-transparent border-b border-transparent fixed top-0 left-0 w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center space-x-2">
-                <h1 class="text-2xl font-bold text-primary-600">LKP<span class="text-dark-900">Portal</span></h1>
-            </a>
-
-            <!-- Navigation -->
-            <nav class="hidden md:flex space-x-6 text-dark-700 font-medium">
-                <a href="index.php" class="hover:text-primary-600 transition">Beranda</a>
-                <a href="https://disdik.jakarta.go.id/tentangkami/profil" class="hover:text-primary-600 transition">Tentang</a>
-                <div class="relative group">
-                    <button class="flex items-center space-x-1 hover:text-primary-600 transition">
-                        <span>Layanan</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <!-- Dropdown -->
-                    <ul class="absolute left-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden group-hover:block">
-                        <li><a href="../project_sudin/validasi.php" class="block px-4 py-2 hover:bg-primary-50">Validasi NPSN</a></li>
-                        <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0" class="block px-4 py-2 hover:bg-primary-50">Laporan</a></li>
-                    </ul>
-                </div>
-                <a href="404.html" class="hover:text-primary-600 transition">Kontak</a>
-            </nav>
-
-            <!-- Button Get Started -->
-            <a href="../project_sudin/validasi.php"
-                class="ml-4 bg-primary-600 text-white px-3 py-1 rounded-lg shadow hover:bg-primary-700 transition">
-                Mulai Pendataan
-            </a>
-
-            <!-- Mobile nav toggle -->
-            <button class="mobile-nav-toggle md:hidden text-dark-700">
-                <i class="bi bi-list text-2xl"></i>
-            </button>
-
-        </div>
     </header>
+
+    
 
     <main class="main">
 
@@ -160,7 +121,7 @@ $suffix = "+";
                                     <i class="bi bi-telephone-fill"></i>
                                     <div class="text">
                                         <span class="label">Hotline Bantuan</span>
-                                        <span class="number">(021) 5255385</span>
+                                        <span class="number">(+62) 81998213356</span>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +140,7 @@ $suffix = "+";
 
                                 <div class="stat-item">
                                     <span class="number">90%</span>
-                                    <span class="label">Data Tervalidasi</span>
+                                    <span class="label">Data Terdaftar</span>
                                 </div>
                             </div>
                         </div>
@@ -191,8 +152,8 @@ $suffix = "+";
                                 <span class="hero-badge">Portal Resmi Sudin Pendidikan</span>
                             </div>
 
-                            <h1 class="hero-title">Sistem Pendataan & Visitasi LKP Jakarta Utara</h1>
-                            <p class="hero-description">Portal resmi Suku Dinas Pendidikan Kota Administrasi Jakarta Utara untuk validasi NPSN, pengisian instrumen, dan monitoring Lembaga Kursus & Pelatihan (LKP) secara digital dan terintegrasi.</p>
+                            <h1 class="font-bold text-[2rem]">Sistem Pendataan & Visitasi LKP Sudin Pendidikan Wilayah I Jakarta Utara.</h1>
+                            <p class="hero-description">Portal resmi Suku Dinas Pendidikan Kota Administrasi Jakarta Utara untuk Pendataan NPSN, pengisian instrumen, dan monitoring Lembaga Kursus & Pelatihan (LKP) secara digital dan terintegrasi.</p>
 
                             <div class="hero-stats">
                                 <div class="stat-group">
@@ -212,7 +173,7 @@ $suffix = "+";
                                         <i class="bi bi-check-circle"></i>
                                         <div class="stat-text">
                                             <span class="number">90%</span>
-                                            <span class="label">Tingkat Validasi</span>
+                                            <span class="label">Tingkat Pendataan</span>
                                         </div>
                                     </div>
                                     <div class="stat">
@@ -237,13 +198,13 @@ $suffix = "+";
                                 <div class="quick-actions">
                                     <a href="./validasi.php" class="action-link">
                                         <i class="bi bi-shield-check"></i>
-                                        <span>Validasi NPSN</span>
+                                        <span>Pendataan NPSN</span>
                                     </a>
-                                    <a href="dashboard.html" class="action-link">
+                                    <a href="npsn.php" class="action-link">
                                         <i class="bi bi-graph-up"></i>
                                         <span>Dashboard Monitoring</span>
                                     </a>
-                                    <a href="contact.html" class="action-link">
+                                    <a href="#footer" class="action-link">
                                         <i class="bi bi-telephone"></i>
                                         <span>Bantuan Teknis</span>
                                     </a>
@@ -269,7 +230,7 @@ $suffix = "+";
                 <div class="row">
                     <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up" data-aos-delay="150">
                         <h2 class="section-heading">Tentang Sistem Pendataan & Visitasi LKP</h2>
-                        <p class="lead-description">Platform digital terintegrasi untuk memfasilitasi validasi NPSN, pengisian instrumen visitasi, dan monitoring komprehensif Lembaga Kursus & Pelatihan di Jakarta Utara.</p>
+                        <p class="lead-description">Platform digital terintegrasi untuk memfasilitasi Pendataan NPSN, pengisian instrumen visitasi, dan monitoring komprehensif Lembaga Kursus & Pelatihan di Jakarta Utara.</p>
                     </div>
                 </div>
 
@@ -352,7 +313,7 @@ $suffix = "+";
 
                             <div class="action-buttons">
                                 <a href="../project_sudin/validasi.php" class="btn-explore">Mulai Validasi NPSN</a>
-                                <a href="contact.html" class="btn-contact">
+                                <a href="#footer" class="btn-contact">
                                     <i class="bi bi-telephone"></i>
                                     Hubungi Kami
                                 </a>
@@ -384,7 +345,7 @@ $suffix = "+";
                                 <div class="department-content">
                                     <div class="department-category">Langkah 1</div>
                                     <h2 class="department-title">Akses Portal LKP</h2>
-                                    <p class="department-description">Buka halaman utama Sistem Pendataan & Visitasi LKP Jakarta Utara. Pastikan Anda memiliki koneksi internet yang stabil dan data NPSN lembaga yang valid untuk memulai proses pendataan.</p>
+                                    <p class="department-description">Buka halaman utama Sistem Pendataan & Visitasi LKP Sudin Pendidikan Wilayah 1 Jakarta Utara. Pastikan Anda memiliki koneksi internet yang stabil dan data NPSN lembaga yang valid untuk memulai proses pendataan.</p>
                                     <div class="department-features">
                                         <div class="feature-item">
                                             <i class="fas fa-check-circle"></i>
@@ -420,8 +381,8 @@ $suffix = "+";
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
                                     <div class="card-content">
-                                        <h3 class="card-title">Validasi NPSN</h3>
-                                        <p class="card-description">Masukkan nomor NPSN lembaga Anda untuk verifikasi dan validasi data. Sistem akan mengecek keabsahan NPSN secara otomatis.</p>
+                                        <h3 class="card-title">Pendataan NPSN</h3>
+                                        <p class="card-description">Masukkan nomor NPSN lembaga Anda untuk verifikasi dan Pendataan. Sistem akan mengecek keabsahan NPSN secara otomatis.</p>
                                         <div class="card-stats">
                                             <div class="stat-item">
                                                 <span class="stat-number">2</span>
@@ -429,7 +390,7 @@ $suffix = "+";
                                             </div>
                                             <div class="stat-item">
                                                 <span class="stat-number">Real-time</span>
-                                                <span class="stat-label">Validasi</span>
+                                                <span class="stat-label">Pendataan LKP</span>
                                             </div>
                                         </div>
                                     </div>
@@ -443,7 +404,7 @@ $suffix = "+";
                                     </div>
                                     <div class="card-content">
                                         <h3 class="card-title">Pilih Jenis Investasi</h3>
-                                        <p class="card-description">Setelah NPSN tervalidasi, pilih kategori investasi lembaga: PMA (Penanaman Modal Asing) atau Non PMA sesuai status lembaga.</p>
+                                        <p class="card-description">Setelah NPSN Terdaftar, pilih kategori investasi lembaga: PMA (Penanaman Modal Asing) atau Non PMA sesuai status lembaga.</p>
                                         <div class="card-stats">
                                             <div class="stat-item">
                                                 <span class="stat-number">3</span>
@@ -486,7 +447,7 @@ $suffix = "+";
                         <div class="cta-content">
                             <h3 class="cta-title">Siap Memulai Pendataan LKP?</h3>
                             <p class="cta-description">Pastikan data NPSN lembaga Anda sudah siap dan ikuti alur pendataan sesuai panduan yang tersedia.</p>
-                            <a href="../project_sudin/validasi.php" class="btn btn-primary">Mulai Validasi NPSN</a>
+                            <a href="../project_sudin/validasi.php" class="btn btn-primary">Mulai Pendataan NPSN</a>
                         </div>
                     </div>
 
@@ -594,7 +555,7 @@ $suffix = "+";
                                         <i class="bi bi-telephone-fill"></i>
                                         <div>
                                             <strong>Hotline:</strong><br>
-                                            (021) 5255385
+                                            (+62) 81998213356
                                         </div>
                                     </div>
                                 </div>
@@ -644,7 +605,7 @@ $suffix = "+";
                         <div class="col-lg-3 col-md-6">
                             <div class="stat-item">
                                 <div class="stat-number">90%</div>
-                                <div class="stat-label">Data Tervalidasi</div>
+                                <div class="stat-label">Data Terdaftar</div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -701,7 +662,7 @@ $suffix = "+";
                 <div class="col-lg-2 col-md-3 footer-links">
                     <h4 class="text-xl font-semibold mb-2">Layanan</h4>
                     <ul class="space-y-2 text-lg">
-                        <li><a href="../project_sudin/validasi.php">Validasi NPSN</a></li>
+                        <li><a href="../project_sudin/validasi.php">Pendataan NPSN</a></li>
                         <li><a href="../project_sudin/validasi.php">Form PMA</a></li>
                         <li><a href="../project_sudin/validasi.php">Form Non PMA</a></li>
                         <li><a href="https://disdik.jakarta.go.id/tentangkami/laporan?size=12&page=0">Laporan</a></li>
