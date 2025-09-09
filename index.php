@@ -189,7 +189,7 @@ $suffix = "+";
                             <div class="cta-section">
                                 <div class="cta-buttons">
                                     <a href="./validasi.php" class="btn btn-primary">Mulai Pendataan</a>
-                                    <a href="https://youtu.be/xvFZjo5PgG0?si=lPpflBPwE-8cf_fQ" class="btn btn-secondary glightbox">
+                                    <a href="#featured-departments" class="btn btn-secondary">
                                         <i class="bi bi-play-circle"></i>
                                         Panduan Penggunaan
                                     </a>
