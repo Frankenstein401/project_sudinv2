@@ -157,6 +157,13 @@ $no = ($page - 1) * $limit + 1; // Starting number for current page
 
 <body class="bg-secondary-50 min-h-screen flex items-start justify-center p-4">
     <div class="w-full max-w-7xl mx-auto px-4">
+        <a href="./readAdmin.php"
+            class="bg-transparent text-red-400 border-2 border-red-600 px-6 py-3 rounded-xl font-semibold shadow-lg 
+          hover:shadow-xl hover:bg-red-400 hover:text-white transform hover:scale-105 transition-all duration-200 
+          flex items-center justify-center space-x-2 w-[150px]">
+            <span>Log Out</span>
+        </a>
+
         <h1 class="text-2xl font-bold text-info-800 mb-6 text-center animate-fade-in">Laporan Pendataan LKP</h1>
 
         <!-- Search and Filter Form -->
@@ -213,11 +220,11 @@ $no = ($page - 1) * $limit + 1; // Starting number for current page
                             </td>
                         </tr>
                     <?php else: ?>
-                        <?php 
+                        <?php
                         // Handle both old and new format (with or without 'data' key)
                         $pmaData = isset($pmacols['data']) ? $pmacols['data'] : $pmacols;
                         $nonPmaData = isset($nonpmacols['data']) ? $nonpmacols['data'] : $nonpmacols;
-                        
+
                         foreach ($pmaData as $pmacol): ?>
                             <tr class="border-b border-secondary-200 hover:bg-primary-50 transition-colors animate-slide-up">
                                 <td class="py-3 px-4 text-secondary-700"><?= $no++; ?></td>
