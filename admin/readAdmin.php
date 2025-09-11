@@ -136,6 +136,9 @@ $end = min($offset + $limit, $totalData);
                         <i class="fas fa-plus"></i>
                         <span>Tambah Data</span>
                     </a>
+                    <a href="../validasi.php" class="bg-transparent text-red-400 border-2 border-red-600 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
+                        <span>LogOut</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -154,6 +157,18 @@ $end = min($offset + $limit, $totalData);
                         <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Lembaga</p>
                         <p class="text-2xl font-bold text-gray-900"><?= count(readAdmin()) ?></p>
                     </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 animate-fade-in">
+                <div class="flex items-center">
+                    <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 p-3 rounded-xl">
+                        <i class="fas fa-book text-white text-xl"></i>
+                    </div>
+                    <a href="./laporan.php">
+                        <div class="ml-4">
+                            <p class="text-lg font-semibold text-gray-600 uppercase tracking-wide">Laporan Lembaga</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

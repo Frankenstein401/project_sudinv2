@@ -265,11 +265,11 @@ $style = $styles[$status] ?? ['bg-gray-100 text-gray-800', '<i class="fas fa-que
                                 </span>
                             </div>
                             <div class="flex items-start">
-                                <span class="inline-block w-24 text-sm font-medium text-secondary-600 mr-4">Status pengisian:</span>
-                                <span class="text-secondary-700"><?= htmlspecialchars($user['status_pengisian_lkp']); ?></span>
+                                <span class="inline-block w-24 text-sm font-medium text-secondary-600 mr-4">Status Pengisian:</span>
+                                <span class="text-blue-700 inline-flex"><?= htmlspecialchars($user['status_pengisian_lkp']); ?></span>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
 

@@ -100,7 +100,7 @@ $suffix = "+";
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="btn-getstarted" href="../project_sudin/validasi.php">Mulai Pendataan</a>
+            <a class="btn-getstarted" href="./validasi.php">Mulai Pendataan</a>
 
         </div>
     </header>
