@@ -66,5 +66,3 @@ function validateNPSN() {
         exit();
     }
 }
-
-?>
