@@ -1,9 +1,9 @@
     <?php
     // Konfigurasi database
-    $host = 'localhost';
+    $host = '172.17.1.93';
     $username = 'root';
-    $password = '';
-    $database = 'database_sudin';
+    $password = 'Smkn12jkt';
+    $database = 'database_sudin_dev_test';
 
     $conn = new mysqli($host, $username, $password, $database);
     if ($conn->connect_error) {
