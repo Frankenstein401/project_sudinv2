@@ -1,7 +1,4 @@
 <?php
-// auth.php
-
-// 1. Wajib memulai session di baris paling awal
 session_start();
 
 require_once __DIR__ . '/conn.php';
