@@ -161,7 +161,7 @@ $no = ($page - 1) * $limit + 1; // Starting number for current page
             class="bg-transparent text-red-400 border-2 border-red-600 px-6 py-3 rounded-xl font-semibold shadow-lg 
           hover:shadow-xl hover:bg-red-400 hover:text-white transform hover:scale-105 transition-all duration-200 
           flex items-center justify-center space-x-2 w-[150px]">
-            <span>Kembali</span>
+            <span>Log Out</span>
         </a>
 
         <h1 class="text-2xl font-bold text-info-800 mb-6 text-center animate-fade-in">Laporan Pendataan LKP</h1>
