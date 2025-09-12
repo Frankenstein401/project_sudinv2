@@ -13,4 +13,3 @@ if($_SESSION['user']['user'] != 'admin' && $_SESSION['user']['key'] != 'admin'){
 } else {
     header("Location: readAdmin.php");
 }
-?>
