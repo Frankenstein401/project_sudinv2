@@ -447,7 +447,7 @@ $suffix = "+";
                         <div class="cta-content">
                             <h3 class="cta-title">Siap Memulai Pendataan LKP?</h3>
                             <p class="cta-description">Pastikan data NPSN lembaga Anda sudah siap dan ikuti alur pendataan sesuai panduan yang tersedia.</p>
-                            <a href="../project_sudin/validasi.php" class="btn btn-primary">Mulai Pendataan NPSN</a>
+                            <a href="validasi.php" class="btn btn-primary">Mulai Pendataan NPSN</a>
                         </div>
                     </div>
 
