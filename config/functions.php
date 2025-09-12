@@ -181,7 +181,7 @@ function insertNonPMA()
             if (!$stmt_update->execute()) {
                 // Jika update gagal, set flag ke false dan tampilkan error
                 $semua_berhasil = false; 
-                echo "ERROR (UPDATE): Gagal mengeksekusi update. " . $stmt_update->error;
+                return "ERROR (UPDATE): Gagal mengeksekusi update. " . $stmt_update->error;
             }
             $stmt_update->close(); // Tutup statement kedua
         }
@@ -190,7 +190,7 @@ function insertNonPMA()
         // MODIFIKASI: Pesan sukses hanya ditampilkan jika semua proses berhasil
         // ==================================================================
         if ($semua_berhasil) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            return "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                 <script>
                 Swal.fire({
                     icon: 'success',
@@ -224,7 +224,7 @@ function insertPMA()
         if ($conn->connect_error) {
             error_log("Database connection failed: " . $conn->connect_error);
             // Tampilkan pesan error jika koneksi gagal
-            echo "<script>
+            return "<script>
                     Swal.fire('Error!', 'Koneksi ke database gagal.', 'error');
                   </script>";
             return; // Hentikan eksekusi
@@ -462,7 +462,7 @@ function insertPMA()
 
         // PROSES 3: BERIKAN FEEDBACK KE USER BERDASARKAN HASIL AKHIR
         if ($semua_berhasil) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            return "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                   <script>
                   Swal.fire({
                       icon: 'success',
@@ -476,7 +476,7 @@ function insertPMA()
                   });
                   </script>";
         } else {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            return "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                   <script>
                   Swal.fire({
                       icon: 'error',
@@ -491,7 +491,7 @@ function insertPMA()
 
     } catch (Exception $e) {
         error_log("Exception di insertPMA(): " . $e->getMessage());
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        return "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
               <script>
               Swal.fire('Error!', 'Terjadi kesalahan sistem yang tidak terduga.', 'error');
               </script>";
